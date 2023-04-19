@@ -1,5 +1,6 @@
-package Homework.Ex001;
+package Ex001;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /*
@@ -8,20 +9,26 @@ import java.util.Scanner;
  * приложения, вместо этого, необходимо повторно запросить у пользователя ввод данных.
  */
 public class Program {
-    static Scanner scanner = new Scanner(System.in);
-
     public static void main(String[] args) {
-        System.out.printf("Введённое число: %.1f", inputNumber());
+        System.out.printf("Введённое число: %.2f", inputNumber());
     }
 
+    /**
+     * Рекурсивный метод получения дробного числа
+     * 
+     * @return
+     */
     public static float inputNumber() {
-        System.out.println("Введите дробное число: ");
+        System.out.println("Введите дробное число(используя запятые): ");
+        Scanner scanner = new Scanner(System.in);
         float inputNumber;
         try {
             inputNumber = scanner.nextFloat();
-        } catch (Exception e) {
+        } catch (InputMismatchException e) {
+            System.out.println("Неверно введёные данные!!!");
             inputNumber = inputNumber();
         }
+        scanner.close();
         return inputNumber;
     }
 }
