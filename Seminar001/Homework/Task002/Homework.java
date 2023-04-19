@@ -12,6 +12,7 @@ public class Homework {
         double[] quotientArray = null;
         int[] firstArray = generateArr();
         System.out.println("Первый массив: ");
+        System.out.println();
         printArray(firstArray);
 
         int[] secondArray = generateArr();
