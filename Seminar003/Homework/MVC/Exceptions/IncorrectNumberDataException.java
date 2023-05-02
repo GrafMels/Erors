@@ -1,6 +1,6 @@
 package MVC.Exceptions;
 
-class IncorrectNumberDataException extends Exception {
+public class IncorrectNumberDataException extends Exception {
     /**
      * Конструктор для класса исключений связанных с неправильным колличеством
      * введёных данных

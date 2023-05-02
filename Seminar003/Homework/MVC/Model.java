@@ -11,6 +11,7 @@ import java.util.List;
 
 import MVC.Exceptions.FileReaderException;
 import MVC.Exceptions.WrongParseException;
+import MVC.Exceptions.IncorrectNumberDataException;
 
 public class Model {
 
@@ -23,8 +24,10 @@ public class Model {
      * @throws ParseException
      * @throws WrongParseException
      * @throws FileReaderException
+     * @throws IncorrectNumberDataException
      */
-    public static List<User> getOldUsers() throws WrongParseException, FileReaderException {
+    public static List<User> getOldUsers()
+            throws WrongParseException, FileReaderException, IncorrectNumberDataException {
         File dir = new File("Data");
         File[] arrFiles = dir.listFiles();
         List<File> fileList = Arrays.asList(arrFiles);// Получаем список файлов в папке Data
@@ -50,8 +53,9 @@ public class Model {
      * @throws NumberFormatException
      * @throws ParseException
      * @throws WrongParseException
+     * @throws IncorrectNumberDataException
      */
-    public static List<User> oldUser(List<String> inputData) throws WrongParseException {
+    public static List<User> oldUser(List<String> inputData) throws WrongParseException, IncorrectNumberDataException {
         List<User> namesakes = new ArrayList<User>(inputData.size());
         for (int i = 0; i < inputData.size(); i++) {
             namesakes.add(newUser(inputData.get(i)));
@@ -65,9 +69,14 @@ public class Model {
      * @param inputData строка с данными одного юзера
      * @return Возвращает юзера
      * @throws WrongParseException
+     * @throws IncorrectNumberDataException
      */
-    public static User newUser(String inputData) throws WrongParseException {
+    public static User newUser(String inputData) throws WrongParseException, IncorrectNumberDataException {
         String[] userDataString = inputData.replace("<", "").replace(">", " ").split(" ");
+
+        if (userDataString.length != 6) {
+            throw new IncorrectNumberDataException("Неверное колличество данных");
+        }
         String lastName = userDataString[0];
         String firstName = userDataString[1];
         String surName = userDataString[2];

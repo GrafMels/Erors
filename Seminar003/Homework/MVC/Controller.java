@@ -25,7 +25,7 @@ public class Controller {
 
             View.scannerClose();// Закрытие сканера
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.fillInStackTrace());
         }
 
         for (int i = 0; i < users.size(); i++) {// Вывод всех пользователей на экран
