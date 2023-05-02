@@ -77,6 +77,8 @@ public class Model {
         if (userDataString.length != 6) {
             throw new IncorrectNumberDataException("Неверное колличество данных");
         }
+
+        userDataString = tryParseTo(userDataString);
         String lastName = userDataString[0];
         String firstName = userDataString[1];
         String surName = userDataString[2];
@@ -100,5 +102,37 @@ public class Model {
         User user = new User(lastName, firstName, surName, bithDate, phoneNumber, gender);
 
         return user;
+    }
+
+    public static String[] tryParseTo(String[] userDataString) {
+        String[] copyUserDataString = Arrays.copyOf(userDataString, userDataString.length);
+        for (int i = 0; i < userDataString.length; i++) {
+            try {
+                new SimpleDateFormat("DD.MM.yyyy").parse(userDataString[i]);
+                userDataString[3] = userDataString[i];
+                userDataString[i] = copyUserDataString[3];
+                copyUserDataString = Arrays.copyOf(userDataString, userDataString.length);
+            } catch (Exception e) {
+            }
+        }
+        for (int i = 0; i < copyUserDataString.length; i++) {
+            try {
+                Long.parseLong(userDataString[i]);
+                userDataString[4] = userDataString[i];
+                userDataString[i] = copyUserDataString[4];
+                copyUserDataString = Arrays.copyOf(userDataString, userDataString.length);
+            } catch (Exception e) {
+            }
+        }
+
+        for (int i = 0; i < copyUserDataString.length; i++) {
+
+            if (copyUserDataString[i].length() == 1) {
+                userDataString[5] = userDataString[i];
+                userDataString[i] = copyUserDataString[5];
+            }
+        }
+        return userDataString;
+
     }
 }
